@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monthly Accumulative Report - Finance App</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="../daily_expenses/daily_expenses_form.php"><img src="../images/Logo.png" alt="Mafkoora Logo"></a>
+        </div>
+        <!-- <div class="date-select">
+            <form action="monthly_accumulative_report.php" method="GET">
+                <label for="month">Select Month:</label>
+                <input type="month" id="month" name="month" value="<?php echo date('Y-m'); ?>">
+                <button type="submit">Go</button>
+            </form>
+        </div> -->
+
+<div class="date-select">
+    <form action="monthly_accumulative_report.php" method="GET">
+        <label for="month">Select Month:</label>
+        <input type="month" id="month" name="month" value="<?php echo isset($_GET['month']) ? $_GET['month'] : date('Y-m'); ?>">
+        <button type="submit">Go</button>
+    </form>
+</div>
+
+<!-- ... rest of your HTML code ... -->
+
+    </header>
+    <div class="content">
+        <?php
+        if (isset($data) && !empty($data)) {
+            echo '<h1 class="selected-month">' . date('F Y', strtotime($_GET['month'])) . '</h1>';
+            echo '<table>';
+            echo '<thead>';
+            echo '<tr>';
+            echo '<th>CC Code</th>';
+            echo '<th>Cost Center (Description)</th>';
+            echo '<th>Amount (Rs)</th>';
+            echo '<th>Number of Bills</th>';
+            echo '</tr>';
+            echo '</thead>';
+            echo '<tbody>';
+            foreach ($data as $row) {
+                echo '<tr>';
+                echo '<td>' . $row['cc_code'] . '</td>';
+                echo '<td>' . $row['cc_description'] . '</td>';
+                echo '<td>' . $row['total_amount'] . '</td>';
+                echo '<td>' . $row['num_bills'] . '</td>';
+                echo '</tr>';
+            }
+            echo '</tbody>';
+            echo '</table>';
+        } else {
+            echo '<p>No data available for the selected month.</p>';
+        }
+        ?>
+    </div>
+</body>
+</html>
