@@ -1,0 +1,86 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #007bff;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+.logo img {
+    height: 40px;
+}
+
+.date-select {
+    display: flex;
+    align-items: center;
+}
+
+.content {
+    padding: 20px;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.selected-month {
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f5f5f5;
+}
+
+/* Bills & Numbers Report page specific styles */
+.date-range {
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border: 1px solid #ccc;
+}
+
+.content th, .content td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}
+
+.content th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.total-amount {
+    text-align: 80%;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.red {
+    color: red;
+}

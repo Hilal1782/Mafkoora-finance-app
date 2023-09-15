@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bills & Numbers Report - Finance App</title>
+    <link rel="stylesheet" href="../monthly_accumulative_report/css/styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="../daily_expenses/daily_expenses_form.php"><img src="../images/Logo.png" alt="Mafkoora Logo"></a>
+        </div>
+        <div class="date-select">
+            <form action="bills_numbers_report.php" method="GET">
+                <label for="start_date">Start Date:</label>
+                <input type="date" id="start_date" name="start_date" required>
+
+                <label for="end_date">End Date:</label>
+                <input type="date" id="end_date" name="end_date" required>
+
+                <button type="submit">Go</button>
+            </form>
+        </div>
+    </header>
+
+    <div class="content">
+        <?php
+        if (isset($data) && !empty($data)) {
+            $total_amount = 0; // Initialize total amount
+            echo '<h1>Bills & Numbers Report</h1>';
+            echo '<p class="date-range">' . date('F d, Y', strtotime($_GET['start_date'])) . ' - ' . date('F d, Y', strtotime($_GET['end_date'])) . '</p>'; // Show date range
+            echo '<table>';
+            echo '<thead>';
+            echo '<tr>';
+            echo '<th>S.No</th>';
+            echo '<th>CC Code</th>';
+            echo '<th>CC Description</th>';
+            echo '<th>Bill No</th>';
+            echo '<th>Date</th>';
+            echo '<th>Amount (Rs)</th>';
+            echo '<th>Comment</th>';
+            echo '</tr>';
+            echo '</thead>';
+            echo '<tbody>';
+            $positiveTotal = 0;
+            $negativeTotal = 0;
+
+            foreach ($data as $row) {
+                echo '<tr>';
+                echo '<td>' . $row['sno'] . '</td>';
+                echo '<td>' . $row['cc_code'] . '</td>';
+                echo '<td>' . $row['cc_description'] . '</td>';
+                echo '<td>' . $row['ref_bill'] . '</td>';
+                echo '<td>' . $row['date'] . '</td>';
+                echo '<td>' . $row['amount'] . '</td>';
+                echo '<td>' . $row['comment'] . '</td>';
+                echo '</tr>';
+                
+                // Accumulate total amount
+                
+                if (substr($row['cc_description'], -1) === '+') {
+                    $positiveTotal += floatval($row['amount']);
+                } elseif (substr($row['cc_description'], -1) === '-') {
+                    $negativeTotal += floatval($row['amount']);
+                }
+
+            }
+            echo '</tbody>';
+            echo '</table>';
+            $totalAmount = $positiveTotal - $negativeTotal;
+
+            echo '<p class="total-amount">Total Amount: <span class="red">' . number_format($totalAmount, 2) . '</span></p>';
+
+
+        } else {
+            echo '<p>No data available for the selected date range.</p>';
+        }
+        ?>
+    </div>
+</body>
+</html>
